@@ -1399,10 +1399,11 @@ def warmWhite() { setColor(name: "warmWhite") }
 def startProgram(programNumber) {
     if (state.debug) log.trace "${device.displayName}: startProgram(): programNumber: ${programNumber}"
 
-    if (state.isIN | state.isOUT) {
-        log.warn "${device.displayName}: Built-in programs work with RGBW channels only, they will not function when using IN/OUT channels!"
-    }
-    else if (programNumber > 0 & programNumber <= 10) {
+//    if (state.isIN | state.isOUT) {
+//        log.warn "${device.displayName}: Built-in programs work with RGBW channels only, they will not function when using IN/OUT channels!"
+//    }
+//    else
+      if (programNumber > 0 & programNumber <= 10) {
         (1..4).each { sendEvent(name: "savedLevelCh${it}", value: device.latestValue("levelCh${it}").toInteger(), displayed: false) } // Save levels for all channels.
         sendEvent(name: "activeProgram", value: programNumber, displayed: false)
         sendEvent(name: "colorName", value: "program")
